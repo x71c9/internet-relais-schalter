@@ -1,0 +1,6 @@
+@reboot sleep 120 && /home/x71c9/scripts/relay/ping.sh >> /home/x71c9/scripts/relay/relay.log 2>&1
+# Truncate log file every 5 days
+10 2 * * * [ $(( $(date +\%s) / 86400 \% 5 )) -eq 0 ] && : > /home/x71c9/scripts/relay/relay.log
+# Reboot at 3:10AM
+10 3 * * * /sbin/reboot
+

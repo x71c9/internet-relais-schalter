@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Path to your binary
-BINARY="./target/release/internet-relais-schalter"
+BINARY="/home/x71c9/scripts/relay/target/release/internet-relais-schalter"
 ARG="300"
 
 # Counter for failed pings
@@ -27,6 +27,7 @@ while true; do
         $BINARY $ARG   # <-- this will block until it finishes
         echo "$(date): Binary finished. Resuming ping checks..."
         fail_count=0  # reset after running
+        sleep 3600
     fi
 
     # Wait 1 minute before next check
