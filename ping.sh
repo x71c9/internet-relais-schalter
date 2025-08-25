@@ -10,6 +10,8 @@ fail_count=0
 # Number of minutes to wait before triggering the binary
 MAX_FAILS=5
 
+RESUME_TIME=3600
+
 while true; do
     if ping -c 1 -W 1 8.8.8.8 > /dev/null 2>&1; then
         # Reset counter if ping is successful
@@ -25,9 +27,10 @@ while true; do
     if [ "$fail_count" -ge "$MAX_FAILS" ]; then
         echo "$(date): No internet for $MAX_FAILS minutes. Running binary..."
         $BINARY $ARG   # <-- this will block until it finishes
-        echo "$(date): Binary finished. Resuming ping checks..."
+        echo "$(date): Binary finished"
         fail_count=0  # reset after running
-        sleep 3600
+        echo "Wait $RESUME_TIME seconds..."
+        sleep $RESUME_TIME
     fi
 
     # Wait 1 minute before next check
